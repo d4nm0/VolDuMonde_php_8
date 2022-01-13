@@ -1,7 +1,7 @@
 <?php
 session_start();
 
-if(         isset($_POST['name'])   and !empty($_POST['name'])
+if(         isset($_POST['email'])   and !empty($_POST['email'])
         and isset($_POST['password'])   and !empty($_POST['password'])){
     //import connection file
     include 'config.php';
@@ -18,7 +18,7 @@ if(         isset($_POST['name'])   and !empty($_POST['name'])
     
     //get values passed by post
     
-    $User->name = $_POST['name'];
+    $User->email = $_POST['email'];
     $User->password = $_POST['password'];
     
     
@@ -28,16 +28,17 @@ if(         isset($_POST['name'])   and !empty($_POST['name'])
     
     if($control_connection['cnt'] ==0){
         session_destroy();
-        header("location: index.php?&msg=user pas trouvé");
+        header("location: ../index.php?&msg=user pas trouvé");
         
     }else{       
-        $User->id=$User->getId();
+        $User_id=$User->getId();
+        $name_user = $User->get_name();
 
-        $_SESSION['nom']= $_POST['nom'];
-        $_SESSION['prenom']= $_POST['prenom'];
-        $_SESSION['id']= $User->id;
-        header("location: index.php");
+        $_SESSION['name']= $name_user;
+        $_SESSION['email']= $_POST['email'];
+        $_SESSION['user_id']= $User_id;
+        header("location: ../index.php");
     }
 }else{
-    header("location: index.php");
+    header("location: ../index.php?msg=champs introuvable");
 }

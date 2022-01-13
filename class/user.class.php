@@ -21,9 +21,9 @@ class User {
     
     public function check_connection(){
         
-        $query = "SELECT COUNT(user_id) as cnt FROM user WHERE name = :name AND password = sha1(:password)";
+        $query = "SELECT COUNT(user_id) as cnt FROM user WHERE email = :email AND password = sha1(:password)";
         $prepare = $this->connection->prepare($query);
-        $prepare->bindParam(':name', $this->name);
+        $prepare->bindParam(':email', $this->email);
         $prepare->bindParam(':password', $this->password);
         if($prepare->execute()){
             return $prepare->fetch();
@@ -36,14 +36,14 @@ class User {
     public function getId(){
         $query= "SELECT user_id "
                 . " FROM ".$this->table
-                . " WHERE name = ? AND password=sha1(?)";
+                . " WHERE email = ? AND password=sha1(?)";
         $prepare= $this->connection->prepare($query);
         
-        $prepare->bindParam(1, $this->name);
+        $prepare->bindParam(1, $this->email);
         $prepare->bindParam(2, $this->password);  
         
         if($prepare->execute()){
-            return $prepare ->fetch()['user_id'];
+            return $prepare ->fetch();
         }else{
             return $prepare->errorInfo();
         }
@@ -53,6 +53,16 @@ class User {
         $prepare= $this->connection->prepare($query);
         if($prepare->execute()){
             return $prepare ->fetchAll();
+        }else{
+            return $prepare->errorInfo();
+        }
+    }
+    public function get_name(){
+        $query= "SELECT user.name FROM user WHERE user.email = :email";
+        $prepare= $this->connection->prepare($query);
+        $prepare->bindParam(':email', $this->email);
+        if($prepare->execute()){
+            return $prepare ->fetch();
         }else{
             return $prepare->errorInfo();
         }
