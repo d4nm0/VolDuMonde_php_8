@@ -45,14 +45,50 @@ session_start();
           
         </div>
       </nav>
-  <div class="col-lg-12">
-          <div class="col-lg-4">
+      <div class="container">
+        <div class="row">
+
+          <div class="col-lg-4" >
+          <div class="card" style="width: 18rem;">
+            <div class="card-body">
+              <h5 class="card-title">ville de depart -> ville d'arriver</h5>
+              <p class="card-text">heure de depart -> heure arriver</p>
+              <p class="card-text">compagnie</p>
+              <p class="card-text">temps de vol</p>
+              <p class="card-text">aller retour</p>
+              <p class="card-text">nombre escale</p>
+              <a href="#" class="btn btn-primary">Reserver</a>
+            </div>
+          </div>
           </div>
           <div class="col-lg-4">
+          <div class="card" style="width: 18rem;">
+            <div class="card-body">
+              <h5 class="card-title">ville de depart -> ville d'arriver</h5>
+              <p class="card-text">heure de depart -> heure arriver</p>
+              <p class="card-text">compagnie</p>
+              <p class="card-text">temps de vol</p>
+              <p class="card-text">aller retour</p>
+              <p class="card-text">nombre escale</p>
+              <a href="#" class="btn btn-primary">Reserver</a>
+            </div>
+          </div>
           </div>
           <div class="col-lg-4">
+          <div class="card" style="width: 18rem;">
+            <div class="card-body">
+              <h5 class="card-title">ville de depart -> ville d'arriver</h5>
+              <p class="card-text">heure de depart -> heure arriver</p>
+              <p class="card-text">compagnie</p>
+              <p class="card-text">temps de vol</p>
+              <p class="card-text">aller retour</p>
+              <p class="card-text">nombre escale</p>
+              <a href="#" class="btn btn-primary">Reserver</a>
+            </div>
+          </div>
           </div>
   </div>
+          </div>
     
 </body>
 </html>
