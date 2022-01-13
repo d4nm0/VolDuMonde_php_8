@@ -22,8 +22,8 @@
               <a class="nav-link" href="#">Vos Reservations</a>
             </li>
           </ul>
-          <button type="button" class="btn btn-outline-dark" ><a href="Login.html">Se Connecter</a></button>
-          <button type="button" class="btn btn-dark" ><a href="Register.html">S'inscrire</a></button>
+          <button type="button" class="btn btn-outline-dark" ><a href="Login.php">Se Connecter</a></button>
+          <button type="button" class="btn btn-dark" ><a href="Register.php">S'inscrire</a></button>
         </div>
       </nav>
     
