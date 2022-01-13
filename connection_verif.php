@@ -1,8 +1,8 @@
 <?php
 session_start();
 
-if(         isset($_POST['nom'])   and !empty($_POST['nom'])
-        and isset($_POST['prenom'])   and !empty($_POST['prenom'])){
+if(         isset($_POST['name'])   and !empty($_POST['name'])
+        and isset($_POST['password'])   and !empty($_POST['password'])){
     //import connection file
     include 'config.php';
     
@@ -11,7 +11,7 @@ if(         isset($_POST['nom'])   and !empty($_POST['nom'])
     $connection = $Database->create_connection();
     
     //import classes
-    include 'user.class.php';
+    include 'class/user.class.php';
     
     //create new instance of user
     $User = new User($connection);
