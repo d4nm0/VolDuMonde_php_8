@@ -32,16 +32,16 @@ class Vol {
             return $prepare->errorInfo();
         }
     }
-    /* public function get_name(){
-        $query= "SELECT user.name FROM user WHERE user.email = :email";
+    public function get_name(){
+        $query= "SELECT * FROM vol WHERE vol.vol_id = :vol_id";
         $prepare= $this->connection->prepare($query);
-        $prepare->bindParam(':email', $this->email);
+        $prepare->bindParam(':vol_id', $this->vol_id);
         if($prepare->execute()){
             return $prepare ->fetch();
         }else{
             return $prepare->errorInfo();
         }
-    } */
+    } 
     public function AddVol(){
         $query = "INSERT INTO `user` (`name`, `password`, `email`, `admin`) VALUES (:name , sha1(:password), :email, 0);";
         $prepare = $this->connection->prepare($query);

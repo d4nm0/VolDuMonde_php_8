@@ -1,0 +1,113 @@
+<?php 
+session_start();
+print_r($_SESSION);
+?>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+    <title>Vol Du Monde</title>
+</head>
+<body>
+    <nav class="navbar navbar-expand-lg navbar-light bg-light">
+        <a class="navbar-brand" href="index.php">Vol Du Monde</a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarText" aria-controls="navbarText" aria-expanded="false" aria-label="Toggle navigation">
+          <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarText">
+          <ul class="navbar-nav mr-auto">
+            <li class="nav-item active">
+              <a class="nav-link" href="index.php">Home <span class="sr-only">(current)</span></a>
+            </li>
+            <?php
+            if(isset($_SESSION['user_id']) and !empty($_SESSION['user_id'])){
+              ?>
+                <li class="nav-item">
+                  <a class="nav-link" href="#">Vos Reservations</a>
+                </li>
+              </ul>
+              <button type="button" class="btn btn-outline-dark" ><a href="../front/profil.php">Mon Profil</a></button>
+              <button type="button" class="btn btn-outline-dark" ><a href="../back/destroy.php">Se Déconnecter</a></button>
+              <?php
+            }else{
+              ?>
+              </ul>
+              <button type="button" class="btn btn-outline-dark" ><a href="Login.php">Se Connecter</a></button>
+              <button type="button" class="btn btn-dark" ><a href="Register.php">S'inscrire</a></button>
+              <?php
+            }
+            ?>
+          
+        </div>
+      </nav>
+      <h1>Modifier ses infos : </h1><br>
+      <form action="../back/update_profil.php" method="post">
+        <span class="input"></span>
+        <input type="text" name="name" placeholder="Full name" title="Format: Xx[space]Xx (e.g. Alex Cican)" autofocus autocomplete="off" pattern="^\w+\s\w+$" />
+        <span class="input"></span>
+        <input type="email" name="email" placeholder="Email address" />
+        <span id="passwordMeter"></span>
+        <input type="password" name="password" id="password" placeholder="Password" title="Password min 8 characters. At least one UPPERCASE and one lowercase letter" pattern="(?=^.{8,}$)(?=.*[a-z])(?=.*[A-Z])(?!.*\s).*$"/>
+      
+        <button type="submit" name="update_user" value="update_user" class="icon-arrow-right btn"><span>update</span></button>
+      </form>
+      <br>
+      <h1>Mes réservations : </h1><br>
+      <?php 
+        //import connection file
+        include '../back/config.php';
+                
+        //create database connection
+        $Database= new Database;
+        $connection = $Database->create_connection();
+        
+        //import classes
+        include '../class/vol.class.php';
+        include '../class/user_vol.class.php';
+        
+        //create new instance of user
+        $Vol = new Vol($connection);
+        $User_vol = new User_vol($connection);
+        
+        $User_vol->user_id=$_SESSION['user_id'][0];
+        $vol_user = $User_vol->select_vol_by_user_id();
+        ?>
+        <div class="container">
+            <div class="row">
+        <?php
+        foreach($vol_user as $row){
+            $Vol->vol_id = $row['vol_id'];
+            $info_vol = $Vol->get_name();
+            //print_r($info_vol);
+            ?>
+            <div class="col-lg-4" >
+            <div class="card" style="width: 18rem;">
+              <div class="card-body">
+                <h5 class="card-title"><?php echo $info_vol['depart']; echo ' -> '; echo $info_vol['arrivée'];?></h5>
+                <p class="card-text">Heure départ : <?php echo $info_vol['heure_depart'];?><br> <?php echo ' Heure arrivée : '; echo $info_vol['heure_arrivée'];?></p>
+                <p class="card-text">Compagnie : <?php echo $info_vol['compagnie'];?></p>
+                <p class="card-text">Temps de vol : <?php echo $info_vol['temps_vol'];?></p>
+                <?php
+                if($info_vol['aller_retour'] == 1){
+                  $aller_retour = "Oui";
+                }else{
+                  $aller_retour = "Non";
+                }
+                ?>
+                <p class="card-text">Aller et retour : <?php echo $aller_retour;?></p>
+                <p class="card-text">Nombre d'escale : <?php echo $info_vol['escale'];?></p>
+
+              </div>
+            </div>
+          </div>
+        <?php
+        }
+        
+      ?>
+      </div>
+        
+    </div>
+</body>

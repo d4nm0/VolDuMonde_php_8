@@ -82,7 +82,7 @@ session_start();
                 <p class="card-text">Compagnie : <?php echo $row['compagnie'];?></p>
                 <p class="card-text">Temps de vol : <?php echo $row['temps_vol'];?></p>
                 <?php
-                if($row['compagnie'] == 1){
+                if($row['aller_retour'] == 1){
                   $aller_retour = "Oui";
                 }else{
                   $aller_retour = "Non";

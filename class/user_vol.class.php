@@ -46,5 +46,18 @@ class User_vol {
             return false;
         }
     }
+    public function select_vol_by_user_id(){
+        
+        $query = "SELECT vol_id FROM user_vol WHERE user_id = :user_id";
+        $prepare = $this->connection->prepare($query);
+        $prepare->bindParam(':user_id', $this->user_id);
+        if($prepare->execute()){
+            return $prepare->fetchAll();
+        }
+        else{
+            $this->error_message = $prepare->errorInfo();
+            return false;
+        }
+    }
 }
 ?>
