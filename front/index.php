@@ -45,7 +45,8 @@ session_start();
           
         </div>
       </nav>
-
+      <div class="container">
+          <div class="row">
       <?php
       //import connection file
       include '../back/config.php';
@@ -66,9 +67,7 @@ session_start();
       //print_r($all_info);
       foreach($all_info as $row){
         ?>
-        <br>
-        <div class="container">
-          <div class="row">
+        
 
           <div class="col-lg-4" >
             <div class="card" style="width: 18rem;">
@@ -90,11 +89,11 @@ session_start();
               </div>
             </div>
           </div>
-        </div>
-    </div>
+        
     <?php
       }
       ?>
-    
+    </div>
+    </div>
 </body>
 </html>
