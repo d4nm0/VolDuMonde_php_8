@@ -57,5 +57,20 @@ class User {
             return $prepare->errorInfo();
         }
     }
+    public function AddUser(){
+        $query = "INSERT into 'user' (`name`, `password`, `email` `admin`) VALUES (:name , sha1(:password), :email, 0)";
+        $prepare = $this->connection->prepare($query);
+        $prepare->bindParam(':name', $this->name);
+        $prepare->bindParam(':password', $this->password);
+        $prepare->bindParam(':email', $this->email);
+        if($prepare->execute()){
+            $this->user_id = $this->connection->lastInsertId();
+            return true;
+        }
+        else{
+            $this->error_message = $prepare->errorInfo();
+            return false;
+        }
+    }
 }
 ?>
