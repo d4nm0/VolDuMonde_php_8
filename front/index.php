@@ -29,7 +29,7 @@ session_start();
                   <a class="nav-link" href="#">Vos Reservations</a>
                 </li>
               </ul>
-
+              <button type="button" class="btn btn-outline-dark" ><a href="../front/profil.php">Mon Profil</a></button>
               <button type="button" class="btn btn-outline-dark" ><a href="../back/destroy.php">Se Déconnecter</a></button>
               <?php
             }else{
