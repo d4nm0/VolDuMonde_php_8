@@ -11,15 +11,15 @@ if(         isset($_POST['name'])   and !empty($_POST['name'])
     $connection = $Database->create_connection();
     
     //import classes
-    include 'class/user.class.php';
+    include '../class/user.class.php';
     
     //create new instance of user
     $User = new User($connection);
     
     //get values passed by post
     
-    $User->nom = $_POST['nom'];
-    $User->prenom = $_POST['prenom'];
+    $User->name = $_POST['name'];
+    $User->password = $_POST['password'];
     
     
     $control_connection = $User->check_connection();
