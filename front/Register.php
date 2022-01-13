@@ -19,9 +19,6 @@
             <li class="nav-item active">
               <a class="nav-link" href="index.php">Home</a>
             </li>
-            <li class="nav-item">
-              <a class="nav-link" href="#">Vos Reservations</a>
-            </li>
           </ul>
           <button type="button" class="btn btn-outline-dark" ><a href="Login.php">Se Connecter</a></button>
           <button type="button" class="btn btn-dark" ><a href="Register.php">S'inscrire</a></button>

@@ -7,7 +7,8 @@ class Vol {
   
     // object properties
     public $vol_id = '';
-    public $name = '';
+    public $depart = '';
+    public $arrivée = '';
     public $password = '';
     public $email = '';
     public $admin = '';
