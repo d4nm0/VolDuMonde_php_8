@@ -64,12 +64,13 @@ session_start();
       
       $all_info = $Vol->AllVol();
       //print_r($all_info);
+      ?>
+      <br>
+      <div class="container">
+        <div class="row">
+      <?php
       foreach($all_info as $row){
         ?>
-        <br>
-        <div class="container">
-          <div class="row">
-
           <div class="col-lg-4" >
             <div class="card" style="width: 18rem;">
               <div class="card-body">
@@ -86,15 +87,14 @@ session_start();
                 ?>
                 <p class="card-text">Aller et retour : <?php echo $aller_retour;?></p>
                 <p class="card-text">Nombre d'escale : <?php echo $row['escale'];?></p>
-                <a href="#" class="btn btn-primary">Reserver</a>
+                <a href="../back/reserver.php" class="btn btn-primary">Reserver</a>
               </div>
             </div>
           </div>
-        </div>
-    </div>
-    <?php
+          <?php
       }
       ?>
-    
+      </div>
+    </div>
 </body>
 </html>
