@@ -59,5 +59,13 @@ class User_vol {
             return false;
         }
     }
+    public function delete_user_vol(){
+        $query = "DELETE FROM `user_vol` WHERE user_id = :user_id AND vol_id = :vol_id";
+        $prepare = $this->connection->prepare($query);
+        $prepare->bindParam(':user_id', $this->user_id);
+        $prepare->bindParam(':vol_id', $this->vol_id);
+        $prepare->execute();
+        return $prepare->rowCount();
+    }
 }
 ?>

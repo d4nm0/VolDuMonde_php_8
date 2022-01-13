@@ -1,6 +1,6 @@
 <?php 
 session_start();
-print_r($_SESSION);
+//print_r($_SESSION);
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -99,7 +99,10 @@ print_r($_SESSION);
                 ?>
                 <p class="card-text">Aller et retour : <?php echo $aller_retour;?></p>
                 <p class="card-text">Nombre d'escale : <?php echo $info_vol['escale'];?></p>
-
+                <form action="../back/annuler_res.php" method="POST">
+                  <input type="hidden" name="vol_id" id="vol_id" value="<?php echo $info_vol['vol_id']?>"/>
+                  <button type="submit" value="Reserver" class="btn btn-primary"><span>Annuler la réservation</span></button>
+                </form>
               </div>
             </div>
           </div>
