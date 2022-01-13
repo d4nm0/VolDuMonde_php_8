@@ -26,9 +26,9 @@ if(         isset($_POST['name'])   and !empty($_POST['name'])
     $msg .="User add";
     
     
-    header("location: ../index.php?msg=".$msg."");
+    header("location: ../front/index.php?msg=".$msg."");
     
 }else{
     $msg .="pas réussi à récuperer les champs";
-    header("location: index.php?msg=".$msg."");
+    header("location: ../front/index.php?msg=".$msg."");
 }

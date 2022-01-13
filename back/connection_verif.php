@@ -28,7 +28,7 @@ if(         isset($_POST['email'])   and !empty($_POST['email'])
     
     if($control_connection['cnt'] ==0){
         session_destroy();
-        header("location: ../index.php?&msg=user pas trouvé");
+        header("location: ../front/index.php?&msg=user pas trouvé");
         
     }else{       
         $User_id=$User->getId();
@@ -37,8 +37,8 @@ if(         isset($_POST['email'])   and !empty($_POST['email'])
         $_SESSION['name']= $name_user;
         $_SESSION['email']= $_POST['email'];
         $_SESSION['user_id']= $User_id;
-        header("location: ../index.php");
+        header("location: ../front/index.php");
     }
 }else{
-    header("location: ../index.php?msg=champs introuvable");
+    header("location: ../front/index.php?msg=champs introuvable");
 }
