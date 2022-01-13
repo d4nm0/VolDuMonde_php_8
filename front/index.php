@@ -44,6 +44,14 @@ print_r($_SESSION);
           
         </div>
       </nav>
+  <div class="col-lg-12">
+          <div class="col-lg-4">
+          </div>
+          <div class="col-lg-4">
+          </div>
+          <div class="col-lg-4">
+          </div>
+  </div>
     
 </body>
 </html>
