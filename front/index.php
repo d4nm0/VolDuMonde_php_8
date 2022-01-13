@@ -55,9 +55,11 @@ session_start();
       
       //import classes
       include '../class/vol.class.php';
+      include '../class/user_vol.class.php';
       
       //create new instance of user
       $Vol = new Vol($connection);
+      $User_vol = new User_vol($connection);
       
       //get values passed by post
       
@@ -88,7 +90,32 @@ session_start();
                 ?>
                 <p class="card-text">Aller et retour : <?php echo $aller_retour;?></p>
                 <p class="card-text">Nombre d'escale : <?php echo $row['escale'];?></p>
-                <a href="../back/reserver.php" class="btn btn-primary">Reserver</a>
+                <form action="../back/reserver.php" method="POST">
+                  <input type="hidden" name="vol_id" id="vol_id" value="<?php echo $row['vol_id']?>"/>
+                  <?php
+                  if(isset($_SESSION['user_id']) and !empty($_SESSION['user_id'])){
+
+                    $User_vol->user_id = $_SESSION['user_id'][0];
+                    $User_vol->vol_id = $row['vol_id'];
+
+                    $control = $User_vol->check_vol();
+                    if($control['cnt'] ==1){
+                      ?>
+                      <b>Déjà réservée</b>
+                      <?php
+                    }else{
+                      ?>
+                    <button type="submit" value="Reserver" class="btn btn-primary"><span>Reserver</span></button>
+                    <?php
+                    }
+                  }else{
+                    ?>
+                    <b>Se connecter pour réserver</b>
+                    <?php
+                  }
+                  ?>
+                </form>
+
               </div>
             </div>
           </div>
