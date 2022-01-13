@@ -15,7 +15,7 @@ class Database{
         $this->host    = 'localhost';
         $this->db_name = 'voldumonde';
         $this->username= 'root';
-        $this->password= 'root';
+        $this->password= '';
         $this->charset = 'UTF8';
     }
     

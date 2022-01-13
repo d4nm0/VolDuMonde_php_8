@@ -45,50 +45,56 @@ session_start();
           
         </div>
       </nav>
-      <div class="container">
-        <div class="row">
+
+      <?php
+      //import connection file
+      include '../back/config.php';
+            
+      //create database connection
+      $Database= new Database;
+      $connection = $Database->create_connection();
+      
+      //import classes
+      include '../class/vol.class.php';
+      
+      //create new instance of user
+      $Vol = new Vol($connection);
+      
+      //get values passed by post
+      
+      $all_info = $Vol->AllVol();
+      //print_r($all_info);
+      foreach($all_info as $row){
+        ?>
+        <br>
+        <div class="container">
+          <div class="row">
 
           <div class="col-lg-4" >
-          <div class="card" style="width: 18rem;">
-            <div class="card-body">
-              <h5 class="card-title">ville de depart -> ville d'arriver</h5>
-              <p class="card-text">heure de depart -> heure arriver</p>
-              <p class="card-text">compagnie</p>
-              <p class="card-text">temps de vol</p>
-              <p class="card-text">aller retour</p>
-              <p class="card-text">nombre escale</p>
-              <a href="#" class="btn btn-primary">Reserver</a>
+            <div class="card" style="width: 18rem;">
+              <div class="card-body">
+                <h5 class="card-title"><?php echo $row['depart']; echo ' -> '; echo $row['arrivée'];?></h5>
+                <p class="card-text">Heure départ : <?php echo $row['heure_depart'];?><br> <?php echo ' Heure arrivée : '; echo $row['heure_arrivée'];?></p>
+                <p class="card-text">Compagnie : <?php echo $row['compagnie'];?></p>
+                <p class="card-text">Temps de vol : <?php echo $row['temps_vol'];?></p>
+                <?php
+                if($row['compagnie'] == 1){
+                  $aller_retour = "Oui";
+                }else{
+                  $aller_retour = "Non";
+                }
+                ?>
+                <p class="card-text">Aller et retour : <?php echo $aller_retour;?></p>
+                <p class="card-text">Nombre d'escale : <?php echo $row['escale'];?></p>
+                <a href="#" class="btn btn-primary">Reserver</a>
+              </div>
             </div>
           </div>
-          </div>
-          <div class="col-lg-4">
-          <div class="card" style="width: 18rem;">
-            <div class="card-body">
-              <h5 class="card-title">ville de depart -> ville d'arriver</h5>
-              <p class="card-text">heure de depart -> heure arriver</p>
-              <p class="card-text">compagnie</p>
-              <p class="card-text">temps de vol</p>
-              <p class="card-text">aller retour</p>
-              <p class="card-text">nombre escale</p>
-              <a href="#" class="btn btn-primary">Reserver</a>
-            </div>
-          </div>
-          </div>
-          <div class="col-lg-4">
-          <div class="card" style="width: 18rem;">
-            <div class="card-body">
-              <h5 class="card-title">ville de depart -> ville d'arriver</h5>
-              <p class="card-text">heure de depart -> heure arriver</p>
-              <p class="card-text">compagnie</p>
-              <p class="card-text">temps de vol</p>
-              <p class="card-text">aller retour</p>
-              <p class="card-text">nombre escale</p>
-              <a href="#" class="btn btn-primary">Reserver</a>
-            </div>
-          </div>
-          </div>
-  </div>
-          </div>
+        </div>
+    </div>
+    <?php
+      }
+      ?>
     
 </body>
 </html>

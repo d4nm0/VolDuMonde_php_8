@@ -9,9 +9,12 @@ class Vol {
     public $vol_id = '';
     public $depart = '';
     public $arrivée = '';
-    public $password = '';
-    public $email = '';
-    public $admin = '';
+    public $heure_depart = '';
+    public $heure_arrivée = '';
+    public $compagnie = '';
+    public $temps_vol = '';
+    public $aller_retour = '';
+    public $escale = '';
     public $error_message;
     public $response;
 
@@ -21,7 +24,7 @@ class Vol {
     }
     
     public function AllVol(){
-        $query= "SELECT * FROM user";
+        $query= "SELECT * FROM vol";
         $prepare= $this->connection->prepare($query);
         if($prepare->execute()){
             return $prepare ->fetchAll();
@@ -29,7 +32,7 @@ class Vol {
             return $prepare->errorInfo();
         }
     }
-    public function get_name(){
+    /* public function get_name(){
         $query= "SELECT user.name FROM user WHERE user.email = :email";
         $prepare= $this->connection->prepare($query);
         $prepare->bindParam(':email', $this->email);
@@ -38,7 +41,7 @@ class Vol {
         }else{
             return $prepare->errorInfo();
         }
-    }
+    } */
     public function AddVol(){
         $query = "INSERT INTO `user` (`name`, `password`, `email`, `admin`) VALUES (:name , sha1(:password), :email, 0);";
         $prepare = $this->connection->prepare($query);
