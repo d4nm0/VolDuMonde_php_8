@@ -1,6 +1,6 @@
 <?php 
 session_start();
-print_r($_SESSION);
+//print_r($_SESSION);
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -29,11 +29,12 @@ print_r($_SESSION);
                   <a class="nav-link" href="#">Vos Reservations</a>
                 </li>
               </ul>
-
-              <button type="button" class="btn btn-outline-dark" ><a href="Login.php">Se Déconnecter</a></button>
+              <button type="button" class="btn btn-outline-dark" ><a href="../front/profil.php">Mon Profil</a></button>
+              <button type="button" class="btn btn-outline-dark" ><a href="../back/destroy.php">Se Déconnecter</a></button>
               <?php
             }else{
               ?>
+              </ul>
               <button type="button" class="btn btn-outline-dark" ><a href="Login.php">Se Connecter</a></button>
               <button type="button" class="btn btn-dark" ><a href="Register.php">S'inscrire</a></button>
               <?php
