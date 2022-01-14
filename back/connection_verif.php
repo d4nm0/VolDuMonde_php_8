@@ -18,8 +18,8 @@ if(         isset($_POST['name'])   and !empty($_POST['name'])
     
     //get values passed by post
     
-    $User->name = $_POST['name'];
-    $User->password = $_POST['password'];
+    $User->setName($_POST['name'])
+         ->setPassword($_POST['password']);
     
     
     $control_connection = $User->check_connection();
@@ -33,9 +33,7 @@ if(         isset($_POST['name'])   and !empty($_POST['name'])
     }else{       
         $User->id=$User->getId();
 
-        $_SESSION['nom']= $_POST['nom'];
-        $_SESSION['prenom']= $_POST['prenom'];
-        $_SESSION['id']= $User->id;
+        $_SESSION['user'] = $User;
         header("location: index.php");
     }
 }else{
