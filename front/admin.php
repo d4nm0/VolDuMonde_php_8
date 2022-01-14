@@ -74,6 +74,7 @@
                                 <th>Temps de vol</th>
                                 <th>Aller/retour</th>
                                 <th>Escale</th>
+                                <th>Place</th>
                                 <th>Actions</th>
                             </tr>
                         </thead>
@@ -101,6 +102,7 @@
                                                 <option value="1" <?php if ($vol['escale'] === "1") { ?> selected="selected"<?php } ?>>Oui</option>
                                             </select>
                                         </td>
+                                        <td><input class="form-control" type="text" name="place" value="<?php echo $vol['place']; ?>" /></td>
                                         <td><input class="btn btn-success" type="submit" value="Modifier" /></td>
                                     </form>
                                 <?php } else { ?>
@@ -114,6 +116,7 @@
                                         <td><?php echo $vol['temps_vol']; ?></td>
                                         <td><?php if ($vol['aller_retour'] === "0") { ?>Non<?php } else { ?>Oui<?php } ?></td>
                                         <td><?php if ($vol['escale'] === "0") { ?>Non<?php } else { ?>Oui<?php } ?></td>
+                                        <td><?php echo $vol['place']; ?></td>
                                         <td>
                                             <a class="btn btn-warning" href="?action=edit&id=<?php echo $vol['vol_id']; ?>">Edit</a>
                                             <a class="btn btn-danger" href="../back/admin.php?action=delete&id=<?php echo $vol['vol_id']; ?>">Delete</a>
@@ -142,6 +145,7 @@
                                             <option value="1">Oui</option>
                                         </select>
                                     </td>
+                                    <td><input class="form-control" type="text" name="place" /></td>
                                     <td><input class="btn btn-success" type="submit" value="Créer" /></td>
                                 </tr>
                             </form>

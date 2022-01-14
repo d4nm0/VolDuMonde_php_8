@@ -17,6 +17,7 @@ class Vol {
     private $temps_vol = '';
     private $aller_retour = '';
     private $escale = '';
+    private $place = '';
 
     // constructor with $db as database connection
     public function __construct($connection)
@@ -33,6 +34,7 @@ class Vol {
         $temps_vol,
         $aller_retour,
         $escale,
+        $place,
         $id = null
     )
     {
@@ -44,6 +46,7 @@ class Vol {
         $this->temps_vol      = $temps_vol;
         $this->aller_retour   = $aller_retour;
         $this->escale         = $escale;
+        $this->place          = $place;
         $this->vol_id         = $id;
     }
     
@@ -74,7 +77,7 @@ class Vol {
 
     public function createVol()
     {
-        $query   = "INSERT INTO `vol` (`depart`,`heure_depart`,`arrivée`,`heure_arrivée`,`compagnie`,`temps_vol`,`aller_retour`,`escale`) VALUES (:depart, :heure_depart, :arrivee, :heure_arrivee, :compagnie, :temps_vol, :aller_retour, :escale);";
+        $query   = "INSERT INTO `vol` (`depart`,`heure_depart`,`arrivée`,`heure_arrivée`,`compagnie`,`temps_vol`,`aller_retour`,`escale`, `place`, `place_dispo`) VALUES (:depart, :heure_depart, :arrivee, :heure_arrivee, :compagnie, :temps_vol, :aller_retour, :escale, :place, :place);";
         $prepare = $this->connection->prepare($query);
         $prepare->bindParam(':depart', $this->depart);
         $prepare->bindParam(':heure_depart', date('Y-m-d H:i:s', strtotime($this->heure_depart)));
@@ -84,6 +87,7 @@ class Vol {
         $prepare->bindParam(':temps_vol', $this->temps_vol);var_dump($this->temps_vol);
         $prepare->bindParam(':aller_retour', $this->aller_retour);var_dump($this->aller_retour);
         $prepare->bindParam(':escale', $this->escale);
+        $prepare->bindParam(':place', $this->place);
 
         if ($prepare->execute()) {
             $this->user_id = $this->connection->lastInsertId();
@@ -98,7 +102,7 @@ class Vol {
 
     public function editVol()
     {
-        $query   = "UPDATE `vol` SET `depart`=:depart, `heure_depart`=:heure_depart, `arrivée`=:arrivee,`heure_arrivée`=:heure_arrivee,`compagnie`=:compagnie,`temps_vol`=:temps_vol,`aller_retour`=:aller_retour,`escale`=:escale WHERE vol_id = :id";
+        $query   = "UPDATE `vol` SET `depart`=:depart, `heure_depart`=:heure_depart, `arrivée`=:arrivee,`heure_arrivée`=:heure_arrivee,`compagnie`=:compagnie,`temps_vol`=:temps_vol,`aller_retour`=:aller_retour,`escale`=:escale,`place`=:place WHERE vol_id = :id";
         $prepare = $this->connection->prepare($query);
         $prepare->bindParam(':depart', $this->depart);
         $prepare->bindParam(':heure_depart', date('Y-m-d H:i:s', strtotime($this->heure_depart)));
@@ -108,6 +112,7 @@ class Vol {
         $prepare->bindParam(':temps_vol', $this->temps_vol);
         $prepare->bindParam(':aller_retour', $this->aller_retour);
         $prepare->bindParam(':escale', $this->escale);
+        $prepare->bindParam(':place', $this->place);
         $prepare->bindParam(':id', $this->vol_id);
 
         if ($prepare->execute()) {

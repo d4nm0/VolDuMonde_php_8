@@ -12,7 +12,7 @@ if (isset($_GET['action']) && !empty($_SESSION) && isset($_SESSION['admin'])) {
     if (!empty($_POST)) {
         if (isset($_POST['depart']) && isset($_POST['heure_depart']) && isset($_POST['arrivee'])
             && isset($_POST['heure_arrivee']) && isset($_POST['compagnie']) && isset($_POST['temps_vol']) 
-            && isset($_POST['aller_retour']) && isset($_POST['escale'])) {
+            && isset($_POST['aller_retour']) && isset($_POST['escale']) && isset($_POST['place'])) {
             $Vol->setInfos(
                 $_POST['depart'], 
                 $_POST['heure_depart'], 
@@ -21,7 +21,8 @@ if (isset($_GET['action']) && !empty($_SESSION) && isset($_SESSION['admin'])) {
                 $_POST['compagnie'], 
                 $_POST['temps_vol'], 
                 $_POST['aller_retour'], 
-                $_POST['escale'], 
+                $_POST['escale'],
+                $_POST['place'],
                 isset($_POST['id']) ? $_POST['id'] : null
             );
         }
