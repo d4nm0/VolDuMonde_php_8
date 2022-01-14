@@ -13,59 +13,78 @@ class User_vol {
     public $response;
 
     // constructor with $db as database connection
-    public function __construct($connection){
+    public function __construct($connection)
+    {
         $this->connection = $connection;
     }
 
-    public function insert_vol_user(){
-        $query = "INSERT INTO `user_vol` (`user_id`, `vol_id`) VALUES (:user_id , :vol_id);";
+    public function insert_vol_user()
+    {
+        $query   = "INSERT INTO `user_vol` (`user_id`, `vol_id`) VALUES (:user_id , :vol_id);";
         $prepare = $this->connection->prepare($query);
         $prepare->bindParam(':user_id', $this->user_id);
         $prepare->bindParam(':vol_id', $this->vol_id);
-        if($prepare->execute()){
+
+        if ($prepare->execute()) {
             $this->user_vol_id = $this->connection->lastInsertId();
-            return true;
-        }
-        else{
+        } else {
             $this->error_message = $prepare->errorInfo();
-            print_r($this->error_message);
+
+            return false;
+        }
+
+        $query   = "UPDATE `vol` SET `place_dispo`=`place_dispo`-1 WHERE vol_id=:vol_id;";
+        $prepare = $this->connection->prepare($query);
+        $prepare->bindParam(':vol_id', $this->vol_id);
+
+        if ($prepare->execute()) {
+            return true;
+        } else {
+            $this->error_message = $prepare->errorInfo();
+
             return false;
         }
     }
-    public function check_vol(){
-        
-        $query = "SELECT COUNT(user_vol_id) as cnt FROM user_vol WHERE user_id = :user_id AND vol_id = :vol_id";
+
+    public function check_vol()
+    {
+        $query   = "SELECT COUNT(user_vol_id) as cnt FROM user_vol WHERE user_id = :user_id AND vol_id = :vol_id";
         $prepare = $this->connection->prepare($query);
         $prepare->bindParam(':user_id', $this->user_id);
         $prepare->bindParam(':vol_id', $this->vol_id);
-        if($prepare->execute()){
+        
+        if ($prepare->execute()) {
             return $prepare->fetch();
-        }
-        else{
+        } else {
             $this->error_message = $prepare->errorInfo();
+
             return false;
         }
     }
-    public function select_vol_by_user_id(){
-        
-        $query = "SELECT vol_id FROM user_vol WHERE user_id = :user_id";
+
+    public function select_vol_by_user_id()
+    {
+        $query   = "SELECT vol_id FROM user_vol WHERE user_id = :user_id";
         $prepare = $this->connection->prepare($query);
         $prepare->bindParam(':user_id', $this->user_id);
-        if($prepare->execute()){
+
+        if ($prepare->execute()) {
             return $prepare->fetchAll();
-        }
-        else{
+        } else {
             $this->error_message = $prepare->errorInfo();
+
             return false;
         }
     }
-    public function delete_user_vol(){
-        $query = "DELETE FROM `user_vol` WHERE user_id = :user_id AND vol_id = :vol_id";
+
+    public function delete_user_vol()
+    {
+        $query   = "DELETE FROM `user_vol` WHERE user_id = :user_id AND vol_id = :vol_id";
         $prepare = $this->connection->prepare($query);
         $prepare->bindParam(':user_id', $this->user_id);
         $prepare->bindParam(':vol_id', $this->vol_id);
         $prepare->execute();
+
         return $prepare->rowCount();
     }
 }
-?>

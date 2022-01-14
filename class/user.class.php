@@ -15,25 +15,29 @@ class User {
     public $response;
 
     // constructor with $db as database connection
-    public function __construct($connection){
+    public function __construct($connection)
+    {
         $this->connection = $connection;
     }
     
-    public function check_connection(){
-        
-        $query = "SELECT COUNT(user_id) as cnt FROM user WHERE email = :email AND password = sha1(:password)";
+    public function check_connection()
+    {
+        $query   = "SELECT COUNT(user_id) as cnt FROM user WHERE email = :email AND password = sha1(:password)";
         $prepare = $this->connection->prepare($query);
         $prepare->bindParam(':email', $this->email);
         $prepare->bindParam(':password', $this->password);
-        if($prepare->execute()){
+
+        if ($prepare->execute()) {
             return $prepare->fetch();
-        }
-        else{
+        } else {
             $this->error_message = $prepare->errorInfo();
+
             return false;
         }
     }
-    public function getId(){
+
+    public function getId()
+    {
         $query= "SELECT user_id "
                 . " FROM ".$this->table
                 . " WHERE email = ? AND password=sha1(?)";
@@ -43,71 +47,97 @@ class User {
         $prepare->bindParam(2, $this->password);  
         
         if($prepare->execute()){
-            return $prepare ->fetch();
+            return $prepare->fetch();
         }else{
             return $prepare->errorInfo();
         }
     }
-    public function AllUser(){
-        $query= "SELECT * FROM user";
-        $prepare= $this->connection->prepare($query);
-        if($prepare->execute()){
+
+    public function AllUser()
+    {
+        $query   = "SELECT * FROM user";
+        $prepare = $this->connection->prepare($query);
+
+        if ($prepare->execute()) {
             return $prepare ->fetchAll();
-        }else{
+        } else {
             return $prepare->errorInfo();
         }
     }
-    public function get_name(){
-        $query= "SELECT user.name FROM user WHERE user.email = :email";
-        $prepare= $this->connection->prepare($query);
+
+    public function getName()
+    {
+        $query   = "SELECT user.name FROM user WHERE user.email = :email";
+        $prepare = $this->connection->prepare($query);
         $prepare->bindParam(':email', $this->email);
-        if($prepare->execute()){
-            return $prepare ->fetch();
-        }else{
+    
+        if ($prepare->execute()) {
+            return $prepare->fetch();
+        } else {
             return $prepare->errorInfo();
         }
     }
-    public function get_info(){
-        $query= "SELECT * FROM user WHERE user.user_id = :user_id";
-        $prepare= $this->connection->prepare($query);
+
+    public function getAdmin()
+    {
+        $query   = "SELECT user.admin FROM user WHERE user.email = :email";
+        $prepare = $this->connection->prepare($query);
+        $prepare->bindParam(':email', $this->email);
+    
+        if ($prepare->execute()) {
+            return $prepare->fetch();
+        } else {
+            return $prepare->errorInfo();
+        }
+    }
+
+    public function get_info()
+    {
+        $query   = "SELECT * FROM user WHERE user.user_id = :user_id";
+        $prepare = $this->connection->prepare($query);
         $prepare->bindParam(':user_id', $this->user_id);
-        if($prepare->execute()){
-            return $prepare ->fetch();
-        }else{
+
+        if ($prepare->execute()) {
+            return $prepare->fetch();
+        } else {
             return $prepare->errorInfo();
         }
     }
-    public function AddUser(){
-        $query = "INSERT INTO `user` (`name`, `password`, `email`, `admin`) VALUES (:name , sha1(:password), :email, 0);";
+
+    public function AddUser()
+    {
+        $query   = "INSERT INTO `user` (`name`, `password`, `email`, `admin`) VALUES (:name , sha1(:password), :email, 0);";
         $prepare = $this->connection->prepare($query);
         $prepare->bindParam(':name', $this->name);
         $prepare->bindParam(':password', $this->password);
         $prepare->bindParam(':email', $this->email);
-        if($prepare->execute()){
+
+        if ($prepare->execute()) {
             $this->user_id = $this->connection->lastInsertId();
+            
             return true;
-        }
-        else{
+        } else {
             $this->error_message = $prepare->errorInfo();
-            print_r($this->error_message);
+            
             return false;
         }
     }
-    public function update_user(){
-        $query = "UPDATE user SET name= :name, password= sha1(:password), email= :email WHERE user_id= :user_id";
+
+    public function update_user()
+    {
+        $query   = "UPDATE user SET name= :name, password= sha1(:password), email= :email WHERE user_id= :user_id";
         $prepare = $this->connection->prepare($query);
         $prepare->bindParam(':name', $this->name);
         $prepare->bindParam(':password', $this->password);
         $prepare->bindParam(':email', $this->email);;
         $prepare->bindParam(':user_id', $this->user_id);
-        if($prepare->execute()){
+
+        if ($prepare->execute()) {
             return true;
-        }
-        else{
+        } else {
             $this->error_message = $prepare->errorInfo();
+
             return false;
         }
     }
-
 }
-?>

@@ -1,7 +1,4 @@
-<?php 
-session_start();
-//print_r($_SESSION);
-?>
+<?php session_start(); ?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -22,27 +19,21 @@ session_start();
             <li class="nav-item active">
               <a class="nav-link" href="index.php">Home <span class="sr-only">(current)</span></a>
             </li>
-            <?php
-            if(isset($_SESSION['user_id']) and !empty($_SESSION['user_id'])){
-              ?>
+            <?php if (isset($_SESSION['user_id']) and !empty($_SESSION['user_id'])) { ?>
                 <li class="nav-item">
                   <a class="nav-link" href="#">Vos Reservations</a>
                 </li>
               </ul>
               <button type="button" class="btn btn-outline-dark" ><a href="../front/profil.php">Mon Profil</a></button>
               <button type="button" class="btn btn-outline-dark" ><a href="../back/destroy.php">Se Déconnecter</a></button>
-              <?php
-            }else{
-              ?>
+            <?php } else { ?>
               </ul>
               <button type="button" class="btn btn-outline-dark" ><a href="Login.php">Se Connecter</a></button>
               <button type="button" class="btn btn-dark" ><a href="Register.php">S'inscrire</a></button>
-              <?php
-            }
-            ?>
-            
-          
-          
+            <?php } ?>
+            <?php if (isset($_SESSION['admin']) and !empty($_SESSION['admin'])) { ?>
+              <button type="button" class="btn btn-outline-dark" ><a href="../front/admin.php">Admin</a></button>
+            <?php } ?>
         </div>
       </nav>
       <?php
@@ -81,6 +72,7 @@ session_start();
                 <p class="card-text">Heure départ : <?php echo $row['heure_depart'];?><br> <?php echo ' Heure arrivée : '; echo $row['heure_arrivée'];?></p>
                 <p class="card-text">Compagnie : <?php echo $row['compagnie'];?></p>
                 <p class="card-text">Temps de vol : <?php echo $row['temps_vol'];?></p>
+                <p class="card-text">Place disponoble : <?php echo $row['place_dispo'] . '/' . $row['place'];?></p>
                 <?php
                 if($row['aller_retour'] == 1){
                   $aller_retour = "Oui";
@@ -99,12 +91,12 @@ session_start();
                     $User_vol->vol_id = $row['vol_id'];
 
                     $control = $User_vol->check_vol();
-                    if($control['cnt'] ==1){
+                    if ($control['cnt'] == 1) {
                       ?>
                       <b>Déjà réservée</b>
-                      <?php
-                    }else{
-                      ?>
+                    <?php } elseif ($row['place_dispo'] == 0) { ?>
+                      <b>Aucun place disponible</b>
+                    <?php } else { ?>
                     <button type="submit" value="Reserver" class="btn btn-primary"><span>Reserver</span></button>
                     <?php
                     }
