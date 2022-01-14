@@ -18,7 +18,7 @@ if(isset($_SESSION['user_id'])   and !empty($_SESSION['user_id'])){
     //get values passed by post
     
     $User_vol->user_id = $_SESSION['user_id'][0];
-    $User_vol->vol_id = $_POST['vol_id'];
+    $User_vol->vol_id  = $_POST['vol_id'];
 
     $control = $User_vol->check_vol();
     
@@ -28,7 +28,6 @@ if(isset($_SESSION['user_id'])   and !empty($_SESSION['user_id'])){
         $User_vol->delete_user_vol();
         header("location: ../front/profil.php?msg=Vol annuler");
     }else{
-
         header("location: ../front/profil.php?msg=problème lors de l'annulation");
     }
         

@@ -62,9 +62,23 @@ class User_vol {
         }
     }
 
+    public function getAllReservations()
+    {
+        $query   = "SELECT * FROM user_vol _uv INNER JOIN vol _v ON _uv.vol_id = _v.vol_id INNER JOIN user _u ON _uv.user_id = _u.user_id";
+        $prepare = $this->connection->prepare($query);
+
+        if ($prepare->execute()) {
+            return $prepare->fetchAll();
+        } else {
+            $this->error_message = $prepare->errorInfo();
+
+            return false;
+        }
+    }
+
     public function select_vol_by_user_id()
     {
-        $query   = "SELECT vol_id FROM user_vol WHERE user_id = :user_id";
+        $query   = "SELECT * FROM user_vol _uv INNER JOIN vol _v ON _uv.vol_id = _v.vol_id WHERE user_id = :user_id";
         $prepare = $this->connection->prepare($query);
         $prepare->bindParam(':user_id', $this->user_id);
 
@@ -84,7 +98,18 @@ class User_vol {
         $prepare->bindParam(':user_id', $this->user_id);
         $prepare->bindParam(':vol_id', $this->vol_id);
         $prepare->execute();
+        $count   = $prepare->rowCount();
 
-        return $prepare->rowCount();
+        $query   = "UPDATE `vol` SET `place_dispo`=`place_dispo`+1 WHERE vol_id=:vol_id;";
+        $prepare = $this->connection->prepare($query);
+        $prepare->bindParam(':vol_id', $this->vol_id);
+
+        if ($prepare->execute()) {
+            return $count;
+        } else {
+            $this->error_message = $prepare->errorInfo();
+
+            return false;
+        }
     }
 }

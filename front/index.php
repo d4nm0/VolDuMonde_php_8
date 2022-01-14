@@ -9,33 +9,7 @@
     <title>Vol Du Monde</title>
 </head>
 <body>
-    <nav class="navbar navbar-expand-lg navbar-light bg-light">
-        <a class="navbar-brand" href="index.php">Vol Du Monde</a>
-        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarText" aria-controls="navbarText" aria-expanded="false" aria-label="Toggle navigation">
-          <span class="navbar-toggler-icon"></span>
-        </button>
-        <div class="collapse navbar-collapse" id="navbarText">
-          <ul class="navbar-nav mr-auto">
-            <li class="nav-item active">
-              <a class="nav-link" href="index.php">Home <span class="sr-only">(current)</span></a>
-            </li>
-            <?php if (isset($_SESSION['user_id']) and !empty($_SESSION['user_id'])) { ?>
-                <li class="nav-item">
-                  <a class="nav-link" href="#">Vos Reservations</a>
-                </li>
-              </ul>
-              <button type="button" class="btn btn-outline-dark" ><a href="../front/profil.php">Mon Profil</a></button>
-              <button type="button" class="btn btn-outline-dark" ><a href="../back/destroy.php">Se Déconnecter</a></button>
-            <?php } else { ?>
-              </ul>
-              <button type="button" class="btn btn-outline-dark" ><a href="Login.php">Se Connecter</a></button>
-              <button type="button" class="btn btn-dark" ><a href="Register.php">S'inscrire</a></button>
-            <?php } ?>
-            <?php if (isset($_SESSION['admin']) and !empty($_SESSION['admin'])) { ?>
-              <button type="button" class="btn btn-outline-dark" ><a href="../front/admin.php">Admin</a></button>
-            <?php } ?>
-        </div>
-      </nav>
+    <?php include_once 'header.php'; ?>
       <?php
       //import connection file
       include '../back/config.php';

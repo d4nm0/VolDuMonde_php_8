@@ -13,34 +13,6 @@
       <div class="container">
         <div class="row">
           <div class="col">
-            <h1>Modifier ses infos : </h1>
-          </div>
-        </div> 
-        <div class="row">
-          <div class="col d-flex justify-content-center">
-            <div class="card">
-              <div class="card-body">
-                <form action="../back/update_profil.php" method="post">
-                  <div class="mb-3">
-                    <span class="input"></span>
-                    <input class="form-control" type="text" name="name" placeholder="Full name" title="Format: Xx[space]Xx (e.g. Alex Cican)" autofocus autocomplete="off" pattern="^\w+\s\w+$" />
-                  </div>
-                  <div class="mb-3">
-                    <span class="input"></span>
-                    <input class="form-control" type="email" name="email" placeholder="Email address" />
-                  </div>
-                  <div class="mb-3">
-                    <span id="passwordMeter"></span>
-                    <input class="form-control" type="password" name="password" id="password" placeholder="Password" title="Password min 8 characters. At least one UPPERCASE and one lowercase letter" pattern="(?=^.{8,}$)(?=.*[a-z])(?=.*[A-Z])(?!.*\s).*$"/>
-                  </div>
-                  <button type="submit" name="update_user" value="update_user" class="icon-arrow-right btn"><span>Mettre à jour</span></button>
-                </form>
-              </div>
-            </div>
-          </div>
-        </div>
-        <div class="row">
-          <div class="col">
             <h1>Mes réservations : </h1>
           </div>
         </div>

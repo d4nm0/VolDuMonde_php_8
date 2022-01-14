@@ -9,33 +9,32 @@
     <title>Vol Du Monde - Register</title>
 </head>
 <body>
-    <nav class="navbar navbar-expand-lg navbar-light bg-light">
-        <a class="navbar-brand" href="#">Vol Du Monde</a>
-        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarText" aria-controls="navbarText" aria-expanded="false" aria-label="Toggle navigation">
-          <span class="navbar-toggler-icon"></span>
-        </button>
-        <div class="collapse navbar-collapse" id="navbarText">
-          <ul class="navbar-nav mr-auto">
-            <li class="nav-item active">
-              <a class="nav-link" href="index.php">Home</a>
-            </li>
-          </ul>
-          <button type="button" class="btn btn-outline-dark" ><a href="Login.php">Se Connecter</a></button>
-          <button type="button" class="btn btn-dark" ><a href="Register.php">S'inscrire</a></button>
-        </div>
-      </nav>
-      <form action="/VolDuMonde_php_8/back/inscription.php" method="post">
-      
-        <span class="input"></span>
-        <input type="text" name="name" placeholder="Full name" title="Format: Xx[space]Xx (e.g. Alex Cican)" autofocus autocomplete="off" required pattern="^\w+\s\w+$" />
-        <span class="input"></span>
-        <input type="email" name="email" placeholder="Email address" required />
-        <span id="passwordMeter"></span>
-        <input type="password" name="password" id="password" placeholder="Password" title="Password min 8 characters. At least one UPPERCASE and one lowercase letter" required pattern="(?=^.{8,}$)(?=.*[a-z])(?=.*[A-Z])(?!.*\s).*$"/>
-      
-        <button type="submit" value="Sign Up" title="Submit form" class="icon-arrow-right btn"><span>Sign up</span></button>
-      </form>
-    
+    <?php include_once 'header.php'; ?>
+    <div class="container">
+      <div class="row">
+        <div class="col d-flex justify-content-center">
+          <div class="card">
+            <div class="card-body">
+              <form action="/VolDuMonde_php_8/back/inscription.php" method="post">
+                <legend>S'inscrire :</legend>
+                <div class="mb-3">
+                  <span class="input"></span>
+                  <input class="form-control" type="text" name="name" placeholder="Full name" title="Format: Xx[space]Xx (e.g. Alex Cican)" autofocus autocomplete="off" required pattern="^\w+\s\w+$" />
+                </div>
+                <div class="mb-3">  
+                  <span class="input"></span>
+                  <input class="form-control" type="email" name="email" placeholder="Email address" required />
+                </div>
+                <div class="mb-3">  
+                  <span id="passwordMeter"></span>
+                  <input class="form-control" type="password" name="password" id="password" placeholder="Password" title="Password min 8 characters. At least one UPPERCASE and one lowercase letter" required pattern="(?=^.{8,}$)(?=.*[a-z])(?=.*[A-Z])(?!.*\s).*$"/>
+                </div>
+                <button type="submit" value="Sign Up" title="Submit form" class="icon-arrow-right btn"><span>Inscription</span></button>
+              </form>
+            </div>
+          </div>
+      </div>
+    </div>
 </body>
 </html>
 

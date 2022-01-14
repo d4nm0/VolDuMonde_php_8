@@ -3,10 +3,12 @@
     //import classes
     include '../back/config.php';
     include '../class/vol.class.php';
+    include '../class/user_vol.class.php';
             
     $Database   = new Database;
     $connection = $Database->create_connection();
     $Vol        = new Vol($connection);
+    $UserVol    = new User_vol($connection);
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -18,31 +20,46 @@
         <title>Vol Du Monde</title>
     </head>
     <body>
-        <nav class="navbar navbar-expand-lg navbar-light bg-light">
-            <a class="navbar-brand" href="index.php">Vol Du Monde</a>
-            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarText" aria-controls="navbarText" aria-expanded="false" aria-label="Toggle navigation">
-                <span class="navbar-toggler-icon"></span>
-            </button>
-            <div class="collapse navbar-collapse" id="navbarText">
-            <ul class="navbar-nav mr-auto">
-                <li class="nav-item active">
-                    <a class="nav-link" href="index.php">Home <span class="sr-only">(current)</span></a>
-                </li>
-                <?php if (isset($_SESSION['user_id']) and !empty($_SESSION['user_id'])) { ?>
-                        <li class="nav-item">
-                            <a class="nav-link" href="#">Vos Reservations</a>
-                        </li>
-                    </ul>
-                    <button type="button" class="btn btn-outline-dark" ><a href="../front/profil.php">Mon Profil</a></button>
-                    <button type="button" class="btn btn-outline-dark" ><a href="../back/destroy.php">Se Déconnecter</a></button>
-                <?php } else { ?>
-                    </ul>
-                    <button type="button" class="btn btn-outline-dark" ><a href="Login.php">Se Connecter</a></button>
-                    <button type="button" class="btn btn-dark" ><a href="Register.php">S'inscrire</a></button>
-                <?php } ?>
-            </div>
-        </nav>
+        <?php include_once 'header.php'; ?>
         <div class="container">
+            <div class="row justify-content-center mt-5 mb-2">
+                <div class="col">
+                    <h1>Les réservations :</h1>
+                </div>
+            </div>
+            <div class="row justify-content-center">
+                <div class="col">
+                    <table class="table">
+                        <thead>
+                            <tr>
+                                <th>Nom/Prénom</td>
+                                <th>Email</td>
+                                <th>Compagnie</th>
+                                <th>Départ</th>
+                                <th>Arrivée</th>
+                                <th>Horaire</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <?php foreach ($UserVol->getAllReservations() as $vol) { ?>
+                                <tr>
+                                    <td><?php echo $vol['name']; ?></td>
+                                    <td><?php echo $vol['email']; ?></td>
+                                    <td><?php echo $vol['compagnie']; ?></td>
+                                    <td><?php echo $vol['depart']; ?></td>
+                                    <td><?php echo $vol['arrivée']; ?></td>
+                                    <td><?php echo date('d/m/Y H:i', strtotime($vol['heure_depart'])) . ' - ' . date('d/m/Y H:i', strtotime($vol['heure_arrivée'])); ?></td>
+                                </tr>
+                            <?php } ?>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+            <div class="row justify-content-center mt-5 mb-2">
+                <div class="col">
+                    <h1>Modifier les vols :</h1>
+                </div>
+            </div>
             <div class="row justify-content-center">
                 <div class="col">
                     <table class="table">
